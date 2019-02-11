@@ -12,7 +12,6 @@ bool AskToPlayAgain();
 FBullCowGame BCGame;
 
 int main() {
-    std::cout << BCGame.GetCurrentTry();
     PrintIntro();
     do {
         PlayGame();
@@ -22,9 +21,8 @@ int main() {
 }
 
 void PrintIntro() {
-    constexpr int32 WORD_LENGTH = 5;
     std::cout << "Welcome to Bulls and Cows." << std::endl;
-    std::cout << "Guess the " << WORD_LENGTH << " letter isogram." << std::endl;
+    std::cout << "Guess the " << BCGame.GetHiddenWordLength() << " letter isogram." << std::endl;
     return;
 }
 
@@ -33,7 +31,9 @@ void PlayGame() {
     int32 MaxTries = BCGame.GetMaxTries();
     for (int32 i = 0; i < MaxTries; i++) {
         FText Guess = GetGuess();
-        std::cout << "Your guess: " << Guess << std::endl;
+        FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
+        std::cout << "Bulls = " << BullCowCount.Bulls << std::endl;
+        std::cout << "Cows = " << BullCowCount.Cows << std::endl;
     }
 }
 
